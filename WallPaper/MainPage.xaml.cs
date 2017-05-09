@@ -7,6 +7,8 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage.Streams;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -29,8 +31,39 @@ namespace WallPaper
         public MainPage()
         {
             this.InitializeComponent();
-            
+            contentFrame.Navigate(typeof(Views.start));
+            initTitlebar();
             fuck();
+        }
+
+        private void initTitlebar()
+        {
+            ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
+            var color = (Color)this.Resources["SystemAccentColor"];
+            var Brightness = (int)Math.Sqrt(
+                color.R * color.R * .299 +
+                color.G * color.G * .587 +
+                color.B * color.B * .114);
+            //var foreColor = Brightness > 130 ? Colors.Black : Colors.White;
+            var foreColor = Colors.White;
+
+            titleBar.BackgroundColor = color;
+            titleBar.ForegroundColor = foreColor;
+
+            titleBar.ButtonBackgroundColor = color;
+            titleBar.ButtonForegroundColor = foreColor;
+
+            titleBar.ButtonHoverBackgroundColor = Color.FromArgb(color.A, (byte)(color.R + 10), (byte)(color.G + 10), (byte)(color.B + 10));
+            titleBar.ButtonHoverForegroundColor = foreColor;
+
+            titleBar.ButtonPressedBackgroundColor = color;
+            titleBar.ButtonPressedForegroundColor = foreColor;
+
+            titleBar.ButtonInactiveBackgroundColor = color;
+            titleBar.ButtonInactiveForegroundColor = foreColor;
+
+            titleBar.InactiveBackgroundColor = Color.FromArgb(color.A, (byte)(color.R - 10), (byte)(color.G - 10), (byte)(color.B - 10));
+            titleBar.InactiveForegroundColor = foreColor;
         }
 
         private async void fuck()
@@ -70,4 +103,5 @@ namespace WallPaper
             MySplitView.IsPaneOpen = !MySplitView.IsPaneOpen;
         }
     }
+
 }

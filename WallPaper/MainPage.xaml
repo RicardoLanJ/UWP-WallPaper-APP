@@ -7,34 +7,36 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <SplitView x:Name="MySplitView" DisplayMode="CompactOverlay"  IsPaneOpen="False" 
-               CompactPaneLength="50" OpenPaneLength="150">
+    <SplitView x:Name="MySplitView" DisplayMode="CompactInline"  IsPaneOpen="False" 
+               CompactPaneLength="50" OpenPaneLength="200">
         <SplitView.Pane>
-            <StackPanel>
-                <Button x:Name="HamburgerButton" FontFamily="Segoe MDL2 Assets" Content="&#xE700;"
-                    Width="50" Height="50" Background="Transparent" Click="HamburgerButton_Click"/>
-                <StackPanel Orientation="Horizontal">
-                    <Button x:Name="MenuButton1" FontFamily="Segoe MDL2 Assets" Content="&#xE825;"
-                   Width="50" Height="50" Background="Transparent"/>
-                    <TextBlock Text="Button 1" FontSize="18" VerticalAlignment="Center" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Button x:Name="MenuButton2" FontFamily="Segoe MDL2 Assets" Content="&#xE10F;"
-                       Width="50" Height="50" Background="Transparent"/>
-                    <TextBlock Text="Button 2" FontSize="18" VerticalAlignment="Center" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Button x:Name="MenuButton3" FontFamily="Segoe MDL2 Assets" Content="&#xE1D6;"
-                       Width="50" Height="50" Background="Transparent"/>
-                    <TextBlock Text="Button 3" FontSize="18" VerticalAlignment="Center" />
-                </StackPanel>
-            </StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="44" />
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Button x:Name="HamburgerButton" Grid.Row="0" Style="{StaticResource MenuItemButtonStyle}" Tag="&#xE700;" Click="HamburgerButton_Click" />
+
+                <ScrollViewer Style="{StaticResource ScrollViewerStyle1}" Grid.Row="1">
+                    <StackPanel x:Name="NavigationMenu" Orientation="Vertical">
+                        <RadioButton x:Name="Option1"
+                            GroupName="Group1"
+                            Style="{StaticResource NavigationButtonStyle}"
+                            Tag="&#xE76E;"
+                            Content="Option 1"/>
+                        <RadioButton x:Name="Option2"
+                            GroupName="Group1"
+                            Style="{StaticResource NavigationButtonStyle}"
+                            Tag="&#xE76E;"
+                            Content="Option 2"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+
         </SplitView.Pane>
         <SplitView.Content>
-            <Grid>
-                <TextBlock Text="SplitView Basic" FontSize="54" Foreground="Black"
-                          HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </Grid>
+            <Frame Name="contentFrame" ></Frame>
         </SplitView.Content>
     </SplitView>
 </Page>

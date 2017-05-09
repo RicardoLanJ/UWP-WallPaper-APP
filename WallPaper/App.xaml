@@ -5,4 +5,15 @@
     xmlns:local="using:WallPaper"
     RequestedTheme="Light">
 
+
+    <Application.Resources>
+        <ResourceDictionary >
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Style.xaml"/>
+                <ResourceDictionary Source="SplitViewStyles.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+   
+    
 </Application>

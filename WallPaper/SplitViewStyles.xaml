@@ -1,0 +1,128 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+
+    <Style TargetType="Button" x:Name="MenuItemButtonStyle" x:Key="MenuItemButtonStyle">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="MinHeight" Value="{ThemeResource ListViewItemMinHeight}"/>
+        <Setter Property="MinWidth" Value="{ThemeResource SplitViewCompactPaneThemeLength}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+
+                    <Grid x:Name="RootGrid">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="44" />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="48" />
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- use extra left margin to align the icon with NavigationButtonStyle'd controls -->
+                        <FontIcon Grid.Column="0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Margin="12,8,8,8"
+                FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                Glyph="{TemplateBinding Tag}"
+                />
+                        <TextBlock Grid.Column="1"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                Margin="8,8,8,8"
+                Text="{TemplateBinding Content}"
+                />
+                    </Grid>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
+    <Style TargetType="RadioButton" x:Name="NavigationButtonStyle" x:Key="NavigationButtonStyle">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="MinHeight" Value="{ThemeResource ListViewItemMinHeight}"/>
+        <Setter Property="MinWidth" Value="{ThemeResource SplitViewCompactPaneThemeLength}" />
+        <Setter Property="Width" Value="200"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+
+                    <Grid x:Name="RootGrid">
+
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CheckedStates">
+                                <VisualState x:Name="Checked">
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="Brush" Storyboard.TargetProperty="Color" From="{Binding Path=Background}" To="{ThemeResource SystemAccentColor}" Duration="0:0:0" FillBehavior="HoldEnd" />
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="CheckedPressedBackground">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unchecked" />
+                                <VisualState x:Name="Indeterminate" />
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="HoverBackground">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="CheckedHoverBackground">
+                                        <DiscreteObjectKeyFrame KeyTime="0">
+                                            <DiscreteObjectKeyFrame.Value>
+                                                <Visibility>Visible</Visibility>
+                                            </DiscreteObjectKeyFrame.Value>
+                                        </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="44" />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4" />
+                            <ColumnDefinition Width="44" />
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Rectangle x:Name="CheckedHoverBackground" Visibility="Collapsed" Fill="#e2e2e2"></Rectangle>
+                        <Rectangle Grid.Column="0">
+                            <Rectangle.Fill>
+                                <SolidColorBrush x:Name="Brush" Color="{Binding Path=Background}" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+
+                        <Rectangle Grid.Column="1" Grid.ColumnSpan="2" x:Name="HoverBackground" Visibility="Collapsed" Fill="#e2e2e2"></Rectangle>
+                        <Rectangle Grid.Column="1" Grid.ColumnSpan="2" x:Name="CheckedPressedBackground" Visibility="Collapsed" Fill="#e2e2e2"></Rectangle>
+
+                        <Rectangle  Grid.ColumnSpan="3" Fill="Transparent"></Rectangle>
+                        <FontIcon Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="8,8,8,8" FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="{TemplateBinding Tag}" />
+                        <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="8,8,8,8" Text="{TemplateBinding Content}" />
+
+                    </Grid>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
+</ResourceDictionary>

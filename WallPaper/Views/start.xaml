@@ -5,6 +5,7 @@
     xmlns:local="using:WallPaper.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:WallPaper.Models"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="20 0 20 10">
@@ -19,15 +20,22 @@
             </StackPanel>
         </Border>
         <ScrollViewer Grid.Row="1" Style="{StaticResource ScrollViewerStyle1}" >
-            <StackPanel>
-                <TextBlock Text="发现" FontSize="154"></TextBlock>
-                <TextBlock Text="发现" FontSize="154"></TextBlock>
-                <TextBlock Text="发现" FontSize="154"></TextBlock>
-                <TextBlock Text="发现" FontSize="154"></TextBlock>
-                <TextBlock Text="发现" FontSize="154"></TextBlock>
-                <TextBlock Text="发现" FontSize="154"></TextBlock>
-                <TextBlock Text="发现" FontSize="154"></TextBlock>
-            </StackPanel>
+            <Grid>
+                <GridView ItemsSource="{x:Bind theWallPapers}" >
+                    <GridView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <ItemsWrapGrid Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </GridView.ItemsPanel>
+                    <GridView.ItemTemplate>
+                        <DataTemplate x:DataType="data:theWallPaper">
+                            <Image Source="{x:Bind thumbnail.small}" Width="100" Height="150" />
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>
+                <ProgressRing IsActive="False"></ProgressRing>
+            </Grid>
+            
         </ScrollViewer>
 
     </Grid>

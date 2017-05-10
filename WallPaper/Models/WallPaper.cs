@@ -17,6 +17,11 @@ namespace WallPaper.Models
     {
         public string small { get; set; }
         public string large { get; set; }
+        public Thumbnail(string s, string l)
+        {
+            small = s;
+            large = l;
+        }
     }
 
     public class Gallery

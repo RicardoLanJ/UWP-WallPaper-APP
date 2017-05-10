@@ -27,7 +27,7 @@ namespace WallPaper.Views
     {
 
         public ObservableCollection<theWallPaper> theWallPapers { get; set; }
-        private string website = "https://wall.alphacoders.com/by_category.php?id=3";
+        private string website = "https://wall.alphacoders.com/by_category.php?id=3&page=2"; //stringbulider
 
         public start()
         {

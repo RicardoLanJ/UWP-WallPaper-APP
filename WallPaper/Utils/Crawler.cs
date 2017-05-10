@@ -50,14 +50,11 @@ namespace WallPaper.Utils
             {
                 var temp = image.Descendants("a").ToList()[0].Descendants("img").ToList()[0].GetAttributeValue("src", null);
 
-                var newone = new theWallPaper();
-                newone.name = "test";
-                newone.thumbnail = new Thumbnail(temp, temp);
+                var newone = new theWallPaper("test", new Thumbnail(temp, temp));
                 wallpapers.Add(newone);
 
                 uris.Add(temp);
             }
-            int i = 0;
         }
 
         

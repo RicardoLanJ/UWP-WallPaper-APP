@@ -9,8 +9,12 @@ namespace WallPaper.Models
     public class theWallPaper
     {
         public string name { get; set; }
-        public Gallery animate { get; set; }
         public Thumbnail thumbnail { get; set; }
+        public theWallPaper(string name_, Thumbnail thumbnail_)
+        {
+            name = name_;
+            thumbnail = thumbnail_;
+        }
     }
 
     public class Thumbnail
@@ -24,9 +28,4 @@ namespace WallPaper.Models
         }
     }
 
-    public class Gallery
-    {
-        public string name { get; set; }
-        public string uri { get; set; }
-    }
 }

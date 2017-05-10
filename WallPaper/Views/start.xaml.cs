@@ -27,21 +27,66 @@ namespace WallPaper.Views
     {
 
         public ObservableCollection<theWallPaper> theWallPapers { get; set; }
-        private string website = "https://wall.alphacoders.com/by_category.php?id=3&page=2"; //stringbulider
+        public List<string> UriCache { get; set; }
+        private string website = "https://wall.alphacoders.com/by_category.php?id=3&page="; //stringbulider
+        private int page = 1;
 
         public start()
         {
             this.InitializeComponent();
-            // LoadWallpaperAsync(theWallPapers);
-            theWallPapers = new ObservableCollection<theWallPaper>();
-            init();
+           
+            
+            if (MainPage.theWallPapers != null)
+            {
+                theWallPapers = MainPage.theWallPapers;
+            } else
+            {
+                theWallPapers = new ObservableCollection<theWallPaper>();
+                MainPage.theWallPapers = theWallPapers;
+                init();
+            }
+         
         }
 
         private async void init()
         {
+            MainProgressRing.IsActive = true;
+            await addwallpaper();
+            MainProgressRing.IsActive = false;
+        }
+
+        private async Task addwallpaper()
+        {
             var crawler = new Utils.Crawler();
-            await crawler.grabHtml(website);
+            await crawler.grabHtml(website + page.ToString());
             crawler.parser(theWallPapers);
+            page++;
+        }
+
+        private void makeWp(int from, int to)
+        {
+            foreach (var u in UriCache.Skip(from).Take(to))
+            {
+                theWallPapers.Add(new theWallPaper("test", new Thumbnail(u, u)));
+            }
+        }
+
+        private async void OnScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            var verticalOffset = SV.VerticalOffset;
+            var maxVerticalOffset = SV.ScrollableHeight; //sv.ExtentHeight - sv.ViewportHeight;
+
+            if (maxVerticalOffset < 0 ||
+                verticalOffset == maxVerticalOffset)
+            {
+                SecondProgressRing.IsActive = true;
+                await addwallpaper();
+                SecondProgressRing.IsActive = false;
+            }
+            else
+            {
+                
+            }
         }
 
     }

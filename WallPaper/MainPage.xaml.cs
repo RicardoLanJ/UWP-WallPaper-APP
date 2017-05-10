@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.InteropServices.WindowsRuntime;
+using WallPaper.Models;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage.Streams;
@@ -28,12 +30,13 @@ namespace WallPaper
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        public static ObservableCollection<theWallPaper> theWallPapers { get; set; }
+
         public MainPage()
         {
             this.InitializeComponent();
             contentFrame.Navigate(typeof(Views.start));
             initTitlebar();
-            fuck();
         }
 
         private void initTitlebar()
@@ -66,37 +69,6 @@ namespace WallPaper
             titleBar.InactiveForegroundColor = foreColor;
         }
 
-        private async void fuck()
-        {
-            BitmapImage bitmapImage = new BitmapImage();
-            try
-            {
-                using (HttpClient client = new HttpClient())
-                {
-                    using (var response = await client.GetAsync(new Uri("https://images6.alphacoders.com/607/thumb-350-607185.jpg")))
-                    {
-                        response.EnsureSuccessStatusCode();
-
-                        using (var stream = await response.Content.ReadAsStreamAsync())
-                        {
-                            using (var memStream = new MemoryStream())
-                            {
-                                await stream.CopyToAsync(memStream);
-                                memStream.Position = 0;
-
-                                bitmapImage.SetSource(memStream.AsRandomAccessStream());
-                            }
-                        }
-                    }
-                }
-                //test.Source = bitmapImage;
-                //test.Source = new BitmapImage(new Uri("https://images6.alphacoders.com/607/thumb-350-607185.jpg"));
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine("Failed to load the image: {0}", ex.Message);
-            }
-        }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
         {

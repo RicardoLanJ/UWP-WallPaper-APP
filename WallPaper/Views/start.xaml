@@ -19,8 +19,8 @@
                           HorizontalAlignment="Left" VerticalAlignment="Center"/>
             </StackPanel>
         </Border>
-        <ScrollViewer Grid.Row="1" Style="{StaticResource ScrollViewerStyle1}" >
-            <Grid>
+        <ScrollViewer x:Name="SV" Grid.Row="1" Style="{StaticResource ScrollViewerStyle1}" ViewChanged="OnScrollViewerViewChanged">
+            <Grid HorizontalAlignment="Center">
                 <GridView ItemsSource="{x:Bind theWallPapers}" >
                     <GridView.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -29,11 +29,16 @@
                     </GridView.ItemsPanel>
                     <GridView.ItemTemplate>
                         <DataTemplate x:DataType="data:theWallPaper">
-                            <Image Source="{x:Bind thumbnail.small}" Width="100" Height="150" />
+                            <StackPanel>
+                                <Image Source="{x:Bind thumbnail.small}" Width="350" Height="219" />
+                                <TextBlock Text="{x:Bind name}"></TextBlock>
+                            </StackPanel>
+                              
                         </DataTemplate>
                     </GridView.ItemTemplate>
                 </GridView>
-                <ProgressRing IsActive="False"></ProgressRing>
+                <ProgressRing x:Name="MainProgressRing" IsActive="False"></ProgressRing>
+                <ProgressRing x:Name="SecondProgressRing" VerticalAlignment="Bottom"></ProgressRing>
             </Grid>
             
         </ScrollViewer>

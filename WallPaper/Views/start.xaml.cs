@@ -49,7 +49,7 @@ namespace WallPaper.Views
          
         }
 
-        private async void init()
+        private async Task init()
         {
             MainProgressRing.IsActive = true;
             await addwallpaper();
@@ -59,9 +59,10 @@ namespace WallPaper.Views
         private async Task addwallpaper()
         {
             var crawler = new Utils.Crawler();
-            await crawler.grabHtml(website + page.ToString());
+            await Task.Run(() => crawler.grabHtml(website + page.ToString()));
             crawler.parser(theWallPapers);
             page++;
+            MainPage.page = page;
         }
 
         private void makeWp(int from, int to)
@@ -93,8 +94,9 @@ namespace WallPaper.Views
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
-            MainPage.page = page;
+            
         }
+
     }
 
 }

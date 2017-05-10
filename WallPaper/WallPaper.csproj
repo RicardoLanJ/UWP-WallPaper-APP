@@ -100,6 +100,7 @@
     </Compile>
     <Compile Include="Models\WallPaper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\colorConvert.cs" />
     <Compile Include="Utils\Crawler.cs" />
     <Compile Include="Views\search.xaml.cs">
       <DependentUpon>search.xaml</DependentUpon>

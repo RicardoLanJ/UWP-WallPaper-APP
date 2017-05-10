@@ -31,6 +31,7 @@ namespace WallPaper
     public sealed partial class MainPage : Page
     {
         public static ObservableCollection<theWallPaper> theWallPapers { get; set; }
+        public static int page = 1;
 
         public MainPage()
         {
@@ -73,6 +74,27 @@ namespace WallPaper
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
         {
             MySplitView.IsPaneOpen = !MySplitView.IsPaneOpen;
+        }
+
+        private void Option1_Click(object sender, RoutedEventArgs e)
+        {
+            if (contentFrame.GetType() != typeof(Views.start))
+            {
+                contentFrame.Navigate(typeof(Views.start));
+            }
+        }
+
+        private void Option3_Click(object sender, RoutedEventArgs e)
+        {
+            if (contentFrame.GetType() != typeof(Views.search))
+            {
+                contentFrame.Navigate(typeof(Views.search));
+            }
+        }
+
+        private void Option2_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 

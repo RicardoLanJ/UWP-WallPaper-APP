@@ -23,13 +23,18 @@
                         <RadioButton x:Name="Option1"
                             GroupName="Group1"
                             Style="{StaticResource NavigationButtonStyle}"
-                            Tag="&#xE76E;"
-                            Content="Option 1"/>
+                            Tag="&#xE80F;"
+                            Content="主页" IsChecked="True" Click="Option1_Click"/>
                         <RadioButton x:Name="Option2"
                             GroupName="Group1"
                             Style="{StaticResource NavigationButtonStyle}"
                             Tag="&#xE76E;"
-                            Content="Option 2"/>
+                            Content="发现" Click="Option2_Click"/>
+                        <RadioButton x:Name="Option3"
+                            GroupName="Group1"
+                            Style="{StaticResource NavigationButtonStyle}"
+                            Tag="&#xE71E;"
+                            Content="搜索" Click="Option3_Click"/>
                     </StackPanel>
                 </ScrollViewer>
             </Grid>

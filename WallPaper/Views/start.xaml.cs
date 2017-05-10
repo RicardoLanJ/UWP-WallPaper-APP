@@ -39,6 +39,7 @@ namespace WallPaper.Views
             if (MainPage.theWallPapers != null)
             {
                 theWallPapers = MainPage.theWallPapers;
+                page = MainPage.page;
             } else
             {
                 theWallPapers = new ObservableCollection<theWallPaper>();
@@ -89,6 +90,11 @@ namespace WallPaper.Views
             }
         }
 
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+            MainPage.page = page;
+        }
     }
 
 }

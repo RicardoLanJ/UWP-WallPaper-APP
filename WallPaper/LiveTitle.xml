@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<tile>
+  <visual>
+
+    <binding template="TileSmall">
+      <image src="Assets/SplashScreen.scale-100.png" placement="background" />
+    </binding>
+
+    <binding template="TileMedium" displayName="WallPaper" branding="name">
+      <image src="Assets/SplashScreen.scale-100.png" placement="background" />
+    </binding>
+
+    <binding template="TileWide" displayName="WallPaper" branding="name">
+      <image src="Assets/SplashScreen.scale-100.png" placement="background" />
+    </binding>
+
+    <binding template="TileLarge" displayName="WallPaper" branding="name">
+      <image src="Assets/SplashScreen.scale-100.png" placement="background" />
+    </binding>
+
+  </visual>
+</tile>

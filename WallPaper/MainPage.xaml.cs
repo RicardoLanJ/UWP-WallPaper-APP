@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
+using System.Xml.Linq;
 using WallPaper.Models;
 using WallPaper.Utils;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI;
+using Windows.UI.Notifications;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -20,6 +23,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using Windows.Web.Http;
+
 
 
 //“空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409 上有介绍
@@ -39,6 +44,64 @@ namespace WallPaper
             this.InitializeComponent();
             contentFrame.Navigate(typeof(Views.start));
             initTitlebar();
+            LiveTitle();
+        }
+
+        private void LiveTitle()
+        {
+            XDocument xdoc = XDocument.Load("LiveTitle.xml");
+            Windows.Data.Xml.Dom.XmlDocument doc = new Windows.Data.Xml.Dom.XmlDocument();
+            var updater = TileUpdateManager.CreateTileUpdaterForApplication();
+            updater.Clear();
+            updater.EnableNotificationQueue(true);
+
+            doc.LoadXml(xdoc.ToString());
+            TileNotification notification = new TileNotification(doc);
+            updater.Update(notification);
+
+            for (int i = 0; i < 5; i++)
+            {
+                foreach (XElement xe in xdoc.Descendants("binding"))
+                {
+                    foreach (XElement xxe in xdoc.Descendants("image"))
+                    {
+                        xxe.SetAttributeValue("src", "Assets/SplashScreen.scale-100.png");
+                    }
+                }
+                doc.LoadXml(xdoc.ToString());
+                notification = new TileNotification(doc);
+                updater.Update(notification);
+            }
+
+            //await ChangeTitle();
+        }
+
+        private async Task ChangeTitle()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                Uri uri = new Uri("https://source.unsplash.com/random/");
+                using (HttpClient client = new HttpClient())
+                {
+                    try
+                    {
+                        HttpResponseMessage response = await client.GetAsync(uri);
+                        if (response != null)
+                        {
+                            string filename = "title" + i.ToString() + ".jpg";
+                            var imageFile = await ApplicationData.Current.LocalFolder.CreateFileAsync(filename, CreationCollisionOption.ReplaceExisting);
+                            using (IRandomAccessStream stream = await imageFile.OpenAsync(FileAccessMode.ReadWrite))
+                            {
+                                await response.Content.WriteToStreamAsync(stream);
+                            }
+                            StorageFile file = await ApplicationData.Current.LocalFolder.GetFileAsync(filename);
+                        }
+                    }
+                    catch
+                    {
+                    }
+                }
+            }
         }
 
         private void initTitlebar()

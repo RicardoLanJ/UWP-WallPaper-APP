@@ -81,9 +81,11 @@ namespace WallPaper.Views
             if (maxVerticalOffset < 0 ||
                 verticalOffset == maxVerticalOffset)
             {
+                SV.ViewChanged -= OnScrollViewerViewChanged;
                 SecondProgressRing.IsActive = true;
                 await addwallpaper();
                 SecondProgressRing.IsActive = false;
+                SV.ViewChanged += OnScrollViewerViewChanged;
             }
             else
             {

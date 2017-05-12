@@ -11,7 +11,7 @@ using WallPaper.Models;
 
 namespace WallPaper.Utils
 {
-    class Crawler
+    class Crawler  // the site which was used  has an api interface that limit 15000....
     {
         public HtmlDocument htmlDoc = new HtmlDocument();
         public enum sortby  {newest, favorites, views, downloads};

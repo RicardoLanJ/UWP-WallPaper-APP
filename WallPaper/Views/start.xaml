@@ -21,7 +21,7 @@
         </Border>
         <ScrollViewer x:Name="SV" Grid.Row="1" Style="{StaticResource ScrollViewerStyle1}" ViewChanged="OnScrollViewerViewChanged">
             <Grid HorizontalAlignment="Center">
-                <GridView ItemsSource="{x:Bind theWallPapers}" >
+                <GridView x:Name="wplist" ItemsSource="{x:Bind theWallPapers}" ItemClick="GridView_ItemClick" IsItemClickEnabled="True">
                     <GridView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <ItemsWrapGrid Orientation="Horizontal"/>
@@ -29,9 +29,8 @@
                     </GridView.ItemsPanel>
                     <GridView.ItemTemplate>
                         <DataTemplate x:DataType="data:theWallPaper">
-                            <StackPanel>
+                            <StackPanel Margin="0 0 0 10">
                                 <Image Source="{x:Bind thumbnail.small}" Width="350" Height="219" />
-                                <TextBlock Text="{x:Bind name}"></TextBlock>
                             </StackPanel>
                               
                         </DataTemplate>

@@ -34,19 +34,21 @@ namespace WallPaper.Views
         public start()
         {
             this.InitializeComponent();
-           
-            
+
+
             if (MainPage.theWallPapers != null)
             {
                 theWallPapers = MainPage.theWallPapers;
                 page = MainPage.page;
-            } else
+            }
+            else
             {
                 theWallPapers = new ObservableCollection<theWallPaper>();
                 MainPage.theWallPapers = theWallPapers;
                 init();
             }
-         
+            //theWallPapers = new ObservableCollection<theWallPaper>();
+            //init();
         }
 
         private async Task init()
@@ -81,6 +83,7 @@ namespace WallPaper.Views
             if (maxVerticalOffset < 0 ||
                 verticalOffset == maxVerticalOffset)
             {
+                
                 SV.ViewChanged -= OnScrollViewerViewChanged;
                 SecondProgressRing.IsActive = true;
                 await addwallpaper();
@@ -99,6 +102,12 @@ namespace WallPaper.Views
             
         }
 
+        private theWallPaper selectedItem;
+        private void GridView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            selectedItem = (theWallPaper)e.ClickedItem;
+            Frame.Navigate(typeof(Views.detail), selectedItem);
+        }
     }
 
 }

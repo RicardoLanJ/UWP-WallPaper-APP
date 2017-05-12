@@ -24,7 +24,10 @@ namespace WallPaper.Models
         public Thumbnail(string s, string l)
         {
             small = s;
-            large = l;
+            //large = l;
+            var aStringBuilder = new StringBuilder(s);
+            aStringBuilder.Remove(41, 3).Insert(41, "1920");
+            large = aStringBuilder.ToString();
         }
     }
 

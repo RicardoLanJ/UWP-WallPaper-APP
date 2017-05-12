@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace WallPaper.Models
@@ -25,9 +26,9 @@ namespace WallPaper.Models
         {
             small = s;
             //large = l;
-            var aStringBuilder = new StringBuilder(s);
-            aStringBuilder.Remove(41, 3).Insert(41, "1920");
-            large = aStringBuilder.ToString();
+            //var aStringBuilder = new StringBuilder(s);
+            //aStringBuilder.Remove(41, 3).Insert(41, "1920");
+            large = Regex.Replace(s, @"thumb-350", "thumb-1920");
         }
     }
 

@@ -13,7 +13,7 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel Margin="30">
-            <TextBlock Text="{x:Bind wp.name}" FontSize="40" VerticalAlignment="Center" Margin="0 0 0 20"></TextBlock>
+            <TextBlock Text="{x:Bind wp.name}" FontSize="40" VerticalAlignment="Center" Margin="0 0 0 20" Visibility="Collapsed"></TextBlock>
             <Image x:Name="im" VerticalAlignment="Top" ></Image>
             <Image x:Name="force" Visibility="Collapsed"></Image>
 

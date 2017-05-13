@@ -57,7 +57,26 @@ namespace WallPaper.Utils
             }
         }
 
-        
+        public List<string> parserTag()
+        {
+            HtmlNode rootnode = htmlDoc.DocumentNode;
+            List<HtmlNode> Tags = rootnode.Descendants().Where
+                (x => (x.Name == "div" && x.Attributes["class"] != null && x.Attributes["class"].Value.Contains("column-subcat"))).ToList();
+            List<string> uris = new List<string>();
+
+            foreach (var tag in Tags)
+            {
+                var it = tag.Descendants("a").ToList()[0];
+                var temp = it.GetAttributeValue("href", null);
+                uris.Add(temp);
+                temp = it.Descendants("p").ToList()[0].InnerText;
+                uris.Add(temp);
+            }
+            return uris;
+        }
+
+
+
     }
 
 

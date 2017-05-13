@@ -30,7 +30,7 @@
                     <GridView.ItemTemplate>
                         <DataTemplate x:DataType="data:theWallPaper">
                             <StackPanel Margin="0 0 0 10">
-                                <Image Source="{x:Bind thumbnail.small}" Width="350" Height="219" />
+                                <Image Source="{x:Bind thumbnail.small}" Width="350" Height="219" ></Image>
                             </StackPanel>
                               
                         </DataTemplate>

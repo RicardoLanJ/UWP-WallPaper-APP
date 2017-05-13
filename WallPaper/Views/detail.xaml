@@ -5,12 +5,18 @@
     xmlns:local="using:WallPaper.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"  
+    xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"  
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core" 
+    
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel Margin="30">
             <TextBlock Text="{x:Bind wp.name}" FontSize="40" VerticalAlignment="Center" Margin="0 0 0 20"></TextBlock>
-            <Image Source="{x:Bind wp.thumbnail.large}" VerticalAlignment="Top" ></Image>
+            <Image x:Name="im" VerticalAlignment="Top" ></Image>
+            <Image x:Name="force" Visibility="Collapsed"></Image>
+
         </StackPanel>
 
     </Grid>

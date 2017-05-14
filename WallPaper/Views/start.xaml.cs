@@ -163,6 +163,26 @@ namespace WallPaper.Views
             }
         }
 
+        private void myRightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            //GridView gridView = (GridView)sender;
+            //MenuFlyout.ShowAt(gridView, e.GetPosition(gridView));
+            FrameworkElement senderElement = sender as FrameworkElement;
+            var MF = (MenuFlyout)FlyoutBase.GetAttachedFlyout(senderElement);
+
+            MF.ShowAt(senderElement, e.GetPosition(senderElement));
+        }
+
+        private void downloadandset_Click(object sender, RoutedEventArgs e)
+        {
+            theWallPaper a = (theWallPaper)((FrameworkElement)e.OriginalSource).DataContext;
+
+        }
+
+        private void download_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 
 }

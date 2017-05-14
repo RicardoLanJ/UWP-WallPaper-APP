@@ -13,6 +13,10 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel Margin="30">
+            <StackPanel Margin=" 0 0 0 10" Orientation="Horizontal">
+                <Button Width="150">下载</Button>
+                <Button Width="150" Margin="50 0 0 0">下载并设为壁纸</Button>
+            </StackPanel>
             <TextBlock Text="{x:Bind wp.name}" FontSize="40" VerticalAlignment="Center" Margin="0 0 0 20" Visibility="Collapsed"></TextBlock>
             <Image x:Name="im" VerticalAlignment="Top" ></Image>
             <Image x:Name="force" Visibility="Collapsed"></Image>

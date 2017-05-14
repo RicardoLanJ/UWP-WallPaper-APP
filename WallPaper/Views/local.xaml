@@ -1,0 +1,55 @@
+﻿<Page
+    x:Class="WallPaper.Views.local"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WallPaper.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:WallPaper.Models"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="20 0 20 10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" BorderBrush="#cecece" BorderThickness="0 0 0 0.5" VerticalAlignment="Top" >
+            <StackPanel Margin="0 20 0 20">
+                <TextBlock  Text="本地" FontSize="30" Foreground="Gray"
+                          HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Border>
+        <ScrollViewer x:Name="SV" Grid.Row="1" Style="{StaticResource ScrollViewerStyle1}">
+            <Grid HorizontalAlignment="Center">
+                <GridView x:Name="wplist" ItemsSource="{x:Bind theWallPapers}">
+                    <GridView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <ItemsWrapGrid Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </GridView.ItemsPanel>
+                    <GridView.ItemTemplate>
+                        <DataTemplate x:DataType="data:locali">
+
+                            <Grid RightTapped="myRightTapped">
+                                <FlyoutBase.AttachedFlyout>
+                                    <MenuFlyout x:Name="menuFlyout">
+                                        <MenuFlyout.Items>
+                                            <MenuFlyoutItem x:Name="downloadandset" Text="设为壁纸" Click="downloadandset_Click"/>
+                                        </MenuFlyout.Items>
+                                    </MenuFlyout>
+                                </FlyoutBase.AttachedFlyout>
+                                
+                                <StackPanel Margin="0 0 0 10">
+                                    <TextBlock Text="{x:Bind name}"></TextBlock>
+                                    <Image Source="{x:Bind bitmap}" Width="350" Height="219" ></Image>
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                    <GridView.Resources></GridView.Resources>
+                </GridView>
+                <ProgressRing x:Name="MainProgressRing" IsActive="False"></ProgressRing>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Page>

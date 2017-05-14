@@ -98,6 +98,7 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\locali.cs" />
     <Compile Include="Models\WallPaper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\colorConvert.cs" />
@@ -105,6 +106,9 @@
     <Compile Include="Utils\manager.cs" />
     <Compile Include="Views\detail.xaml.cs">
       <DependentUpon>detail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\local.xaml.cs">
+      <DependentUpon>local.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\search.xaml.cs">
       <DependentUpon>search.xaml</DependentUpon>
@@ -149,6 +153,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="Views\detail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\local.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

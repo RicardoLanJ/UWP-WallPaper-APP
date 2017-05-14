@@ -104,10 +104,12 @@ namespace WallPaper
             }
         }
 
-        private void initTitlebar()
+        public static void initTitlebar()
         {
             ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
-            var color = (Color)this.Resources["SystemAccentColor"];
+            
+            var color = (Color)Application.Current.Resources["SystemAccentColor"];
+            
             var Brightness = (int)Math.Sqrt(
                 color.R * color.R * .299 +
                 color.G * color.G * .587 +
@@ -156,13 +158,17 @@ namespace WallPaper
         {
             if (contentFrame.GetType() != typeof(Views.search))
             {
+               // MainPage.initTitlebar();
                 contentFrame.Navigate(typeof(Views.search));
             }
         }
 
         private void Option2_Click(object sender, RoutedEventArgs e)
         {
-
+            if (contentFrame.GetType() != typeof(Views.local))
+            {
+                contentFrame.Navigate(typeof(Views.local));
+            }
         }
     }
 

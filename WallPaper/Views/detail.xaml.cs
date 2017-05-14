@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using WallPaper.Models;
+using WallPaper.Utils;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Composition;
@@ -71,8 +72,18 @@ namespace WallPaper.Views
             base.OnNavigatingFrom(e);
             Windows.UI.Core.SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
         }
-       
 
+        private async void downloadandsetclick(object sender, RoutedEventArgs e)
+        {
+            var mg = new manager();
+            await mg.download(wp.thumbnail.large, 1);
+        }
+
+        private async void downloadclick(object sender, RoutedEventArgs e)
+        {
+            var mg = new manager();
+            await mg.download(wp.thumbnail.large, 0);
+        }
     }
 }
 

@@ -179,12 +179,14 @@ namespace WallPaper.Views
         {
             theWallPaper a = (theWallPaper)((FrameworkElement)e.OriginalSource).DataContext;
             var mg = new manager();
-            await mg.download(a.thumbnail.large);
+            await mg.download(a.thumbnail.large, 1);
         }
 
-        private void download_Click(object sender, RoutedEventArgs e)
+        private async void download_Click(object sender, RoutedEventArgs e)
         {
-
+            theWallPaper a = (theWallPaper)((FrameworkElement)e.OriginalSource).DataContext;
+            var mg = new manager();
+            await mg.download(a.thumbnail.large, 0);
         }
     }
 

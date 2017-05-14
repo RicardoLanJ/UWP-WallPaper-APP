@@ -37,7 +37,7 @@ namespace WallPaper.Utils
             double h, s, l;
             RGB2HSL((ColorRGB)c, out h, out s, out l);
             l *= 1.5;
-            l = h > 255 ? 255 : h;
+            l = l > 255 ? 255 : l;
             return HSL2RGB(h, s, l);
         }
 

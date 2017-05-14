@@ -72,6 +72,11 @@ namespace WallPaper.Views
             }
         }
 
-
+        private void delete_Click(object sender, RoutedEventArgs e)
+        {
+            locali a = (locali)((FrameworkElement)e.OriginalSource).DataContext;
+            theWallPapers.Remove(a);
+            manager.deleteFile(a.name);
+        }
     }
 }

@@ -35,6 +35,7 @@
                                     <MenuFlyout x:Name="menuFlyout">
                                         <MenuFlyout.Items>
                                             <MenuFlyoutItem x:Name="downloadandset" Text="设为壁纸" Click="downloadandset_Click"/>
+                                            <MenuFlyoutItem x:Name="delete" Text="删除" Click="delete_Click"/>
                                         </MenuFlyout.Items>
                                     </MenuFlyout>
                                 </FlyoutBase.AttachedFlyout>

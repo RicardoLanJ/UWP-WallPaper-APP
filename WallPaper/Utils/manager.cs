@@ -78,5 +78,12 @@ namespace WallPaper.Utils
             timer.Start();
             return success;
         }
+
+        public static async Task deleteFile(string filename)
+        {
+            StorageFolder fold = Windows.Storage.ApplicationData.Current.LocalFolder;
+            var file = await fold.GetFileAsync(filename);
+            await file.DeleteAsync();
+        }
     }
 }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using WallPaper.Models;
+using WallPaper.Utils;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
@@ -31,6 +32,7 @@ namespace WallPaper.Views
         public List<string> UriCache { get; set; }
         private string website = "https://wall.alphacoders.com/by_category.php?id=3&page="; //stringbulider
         private int page = 1;
+        private int maxnp = 10000;
         private string title = "发现";
 
         public start()
@@ -81,7 +83,7 @@ namespace WallPaper.Views
         {
             var verticalOffset = SV.VerticalOffset;
             var maxVerticalOffset = SV.ScrollableHeight; //sv.ExtentHeight - sv.ViewportHeight;
-
+            if (theWallPapers.Count() == maxnp) return;
             if (maxVerticalOffset < 0 ||
                 verticalOffset == maxVerticalOffset)
             {
@@ -122,7 +124,7 @@ namespace WallPaper.Views
         {
             var crawler = new Utils.Crawler();
             await Task.Run(() => crawler.grabHtml(website));
-            crawler.parser(theWallPapers);
+            maxnp = crawler.parser(theWallPapers);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -173,10 +175,11 @@ namespace WallPaper.Views
             MF.ShowAt(senderElement, e.GetPosition(senderElement));
         }
 
-        private void downloadandset_Click(object sender, RoutedEventArgs e)
+        private async void downloadandset_Click(object sender, RoutedEventArgs e)
         {
             theWallPaper a = (theWallPaper)((FrameworkElement)e.OriginalSource).DataContext;
-
+            var mg = new manager();
+            await mg.download(a.thumbnail.large);
         }
 
         private void download_Click(object sender, RoutedEventArgs e)

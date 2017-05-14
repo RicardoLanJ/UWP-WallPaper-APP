@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WallPaper.Models;
 
@@ -38,7 +39,7 @@ namespace WallPaper.Utils
             htmlDoc.LoadHtml(result);
         }
 
-        public void parser(ObservableCollection<theWallPaper> wallpapers)
+        public int parser(ObservableCollection<theWallPaper> wallpapers)
         {
             HtmlNode rootnode = htmlDoc.DocumentNode;
             //string xpathstring = "//div[@class='boxgrid']/a/img";
@@ -55,6 +56,12 @@ namespace WallPaper.Utils
 
                 uris.Add(temp);
             }
+
+            string num = rootnode.Descendants().Where
+                (x => (x.Name == "div" && x.Attributes["class"] != null && x.Attributes["class"].Value.Contains("header-title"))).ToList()[0].Descendants("h1").ToList()[0].InnerText;
+            Regex regex = new Regex(@"\d+");
+            string res = regex.Match(num).Value;
+            return Convert.ToInt32(res) ;
         }
 
         public List<string> parserTag()

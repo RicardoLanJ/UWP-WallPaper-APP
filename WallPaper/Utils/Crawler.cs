@@ -66,11 +66,14 @@ namespace WallPaper.Utils
 
             foreach (var tag in Tags)
             {
-                var it = tag.Descendants("a").ToList()[0];
-                var temp = it.GetAttributeValue("href", null);
-                uris.Add(temp);
-                temp = it.Descendants("p").ToList()[0].InnerText;
-                uris.Add(temp);
+                var its = tag.Descendants("a").ToList();
+                foreach (var it in its)
+                {
+                    var temp = it.GetAttributeValue("href", null);
+                    uris.Add(temp);
+                    temp = it.Descendants("p").ToList()[0].InnerText;
+                    uris.Add(temp);
+                }        
             }
             return uris;
         }

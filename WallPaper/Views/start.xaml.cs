@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using WallPaper.Models;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -30,23 +31,24 @@ namespace WallPaper.Views
         public List<string> UriCache { get; set; }
         private string website = "https://wall.alphacoders.com/by_category.php?id=3&page="; //stringbulider
         private int page = 1;
+        private string title = "发现";
 
         public start()
         {
             this.InitializeComponent();
 
 
-            if (MainPage.theWallPapers != null)
-            {
-                theWallPapers = MainPage.theWallPapers;
-                page = MainPage.page;
-            }
-            else
-            {
-                theWallPapers = new ObservableCollection<theWallPaper>();
-                MainPage.theWallPapers = theWallPapers;
-                init();
-            }
+            //if (MainPage.theWallPapers != null)
+            //{
+            //    theWallPapers = MainPage.theWallPapers;
+            //    page = MainPage.page;
+            //}
+            //else
+            //{
+            //    theWallPapers = new ObservableCollection<theWallPaper>();
+            //    MainPage.theWallPapers = theWallPapers;
+            //    init();
+            //}
             //theWallPapers = new ObservableCollection<theWallPaper>();
             //init();
         }
@@ -108,6 +110,59 @@ namespace WallPaper.Views
             selectedItem = (theWallPaper)e.ClickedItem;
             Frame.Navigate(typeof(Views.detail), selectedItem);
         }
+
+        private async Task init2()
+        {
+            MainProgressRing.IsActive = true;
+            await addwallpaper2();
+            MainProgressRing.IsActive = false;
+        }
+
+        private async Task addwallpaper2()
+        {
+            var crawler = new Utils.Crawler();
+            await Task.Run(() => crawler.grabHtml(website));
+            crawler.parser(theWallPapers);
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (e.Parameter != null)
+            {
+                var paras = (KeyValuePair<string, string>)e.Parameter;
+                title = paras.Key;
+                website = paras.Value;
+                theWallPapers = new ObservableCollection<theWallPaper>();
+                init2();
+                Windows.UI.Core.SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+                Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += (s, a) =>
+                {
+                    if (Frame.CanGoBack)
+                    {
+                        Windows.UI.Core.SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
+                        //Frame.GoBack();
+                        Frame.Navigate(typeof(Views.search));
+                        a.Handled = true;
+                    }
+                };
+            }
+            else
+            {
+                if (MainPage.theWallPapers != null)
+                {
+                    theWallPapers = MainPage.theWallPapers;
+                    page = MainPage.page;
+                }
+                else
+                {
+                    theWallPapers = new ObservableCollection<theWallPaper>();
+                    MainPage.theWallPapers = theWallPapers;
+                    init();
+                }
+            }
+        }
+
     }
 
 }

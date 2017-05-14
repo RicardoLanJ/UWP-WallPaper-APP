@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
         <Border Grid.Row="0" BorderBrush="#cecece" BorderThickness="0 0 0 0.5" VerticalAlignment="Top" >
             <StackPanel Margin="0 20 0 20">
-                <TextBlock  Text="发现" FontSize="30" Foreground="Gray"
+                <TextBlock  Text="{x:Bind title}" FontSize="30" Foreground="Gray"
                           HorizontalAlignment="Left" VerticalAlignment="Center"/>
             </StackPanel>
         </Border>

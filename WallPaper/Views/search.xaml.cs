@@ -25,17 +25,23 @@ namespace WallPaper.Views
     {
         private string website = "https://wall.alphacoders.com/sub_categories.php?id=3";
         private List<string> tags;
+        private List<string> links;
+        int all = 2200;
         public search()
         {
-            this.InitializeComponent();
-            addTags();
+            this.InitializeComponent();  
+            addTags(); 
         }
 
         private async Task addTags()
         {
+            pre.IsActive = true;
             var crawler = new Utils.Crawler();
             await Task.Run(() => crawler.grabHtml(website));
             tags  = crawler.parserTag();
+            links = tags.Where((c, i) => i % 2 == 0).ToList();
+            tags = tags.Where((c, i) => i % 2 != 0).ToList();
+            pre.IsActive = false;
         }
 
         private void asb_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
@@ -46,34 +52,56 @@ namespace WallPaper.Views
             if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
             {
                 //var matchingContacts = ContactSampleDataSource.GetMatchingContacts(sender.Text);
-                List<string> matchs = new List<string>();
-                foreach(var tag in tags)
-                {
-                    if (tag.Contains(sender.Text)) matchs.Add(tag);
-                }
+                if (tags == null) return;
+                
 
                 //sender.ItemsSource = matchingContacts.ToList();
-                sender.ItemsSource = matchs;
+                sender.ItemsSource = getMatchs(sender.Text);
             }
         }
 
-        //private void asb_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
-        //{
-        //    if (args.ChosenSuggestion != null)
-        //    {
-        //        // User selected an item, take an action on it here
-        //        SelectContact((Contact)args.ChosenSuggestion);
-        //    }
-        //    else
-        //    {
-        //        // Do a fuzzy search on the query text
-        //        var matchingContacts = ContactSampleDataSource.GetMatchingContacts(args.QueryText);
+        private void asb_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            if (args.ChosenSuggestion != null)
+            {
+                // User selected an item, take an action on it here
+                //SelectContact((Contact)args.ChosenSuggestion);
+                go((string)args.ChosenSuggestion);
+            }
+            else
+            {
+                // Do a fuzzy search on the query text
+                //var matchingContacts = ContactSampleDataSource.GetMatchingContacts(args.QueryText);
 
-        //        // Choose the first match, or clear the selection if there are no matches.
-        //        SelectContact(matchingContacts.FirstOrDefault());
-        //    }
-        //}
+                // Choose the first match, or clear the selection if there are no matches.
+                // SelectContact(matchingContacts.FirstOrDefault());
+                go(getMatchs(args.QueryText).FirstOrDefault());
+            }
+        }
 
+        private void go(string tag)
+        {
+            for (int i = 0; i < tags.Count(); ++i)
+            {
+                if (tags[i] == tag)
+                {
+                    string website = "https://wall.alphacoders.com/" + links[i];
+                    Frame.Navigate(typeof(start), new KeyValuePair<string, string>(tag, website));
+                }
+            }
+        }
 
+        private List<string> getMatchs(string text)
+        {
+            List<string> matchs = new List<string>();
+            foreach (var tag in tags)
+            {
+                bool contains = tag.IndexOf(text, StringComparison.OrdinalIgnoreCase) >= 0;
+                //if (tag.Contains(sender.Text)) 
+                if (contains)
+                    matchs.Add(tag);
+            }
+            return matchs;
+        }
     }
 }

@@ -9,8 +9,9 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel Margin="20">
-            <AutoSuggestBox Margin="20" QueryIcon="Find" TextChanged="asb_TextChanged">
+            <AutoSuggestBox Margin="20" QueryIcon="Find" TextChanged="asb_TextChanged" QuerySubmitted="asb_QuerySubmitted">
             </AutoSuggestBox>
+            <ProgressRing x:Name="pre" Width="100" Height="100" Margin="0 250 0 0"></ProgressRing>
         </StackPanel>
     </Grid>
 </Page>

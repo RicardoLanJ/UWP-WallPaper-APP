@@ -57,8 +57,10 @@ namespace WallPaper.Utils
                 uris.Add(temp);
             }
 
+            //string num = rootnode.Descendants().Where
+            //    (x => (x.Name == "div" && x.Attributes["class"] != null && x.Attributes["class"].Value.Contains("header-title"))).ToList()[0].Descendants("h1").ToList()[0].InnerText;
             string num = rootnode.Descendants().Where
-                (x => (x.Name == "div" && x.Attributes["class"] != null && x.Attributes["class"].Value.Contains("header-title"))).ToList()[0].Descendants("h1").ToList()[0].InnerText;
+                (x => (x.Name == "h1" && x.Attributes["class"] != null && x.Attributes["class"].Value.Contains("center title"))).ToList()[0].Descendants("i").ToList()[0].InnerText;
             Regex regex = new Regex(@"\d+");
             string res = regex.Match(num).Value;
             return Convert.ToInt32(res) ;

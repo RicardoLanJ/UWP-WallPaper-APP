@@ -86,7 +86,7 @@ namespace WallPaper.Views
                 if (tags[i] == tag)
                 {
                     string website = "https://wall.alphacoders.com/" + links[i];
-                    Frame.Navigate(typeof(start), new KeyValuePair<string, string>(tag, website));
+                    Frame.Navigate(typeof(start), new KeyValuePair<string, string>(tag, website + "&page="));
                 }
             }
         }

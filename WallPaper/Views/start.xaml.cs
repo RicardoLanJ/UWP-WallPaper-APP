@@ -135,6 +135,7 @@ namespace WallPaper.Views
                 var paras = (KeyValuePair<string, string>)e.Parameter;
                 title = paras.Key;
                 website = paras.Value;
+                page++;
                 theWallPapers = new ObservableCollection<theWallPaper>();
                 init2();
                 Windows.UI.Core.SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
